@@ -1,5 +1,7 @@
 #include "shaderClass.h"
 
+#include <cstring>
+
 // Reads a text file and outputs a string with everything in the text file
 std::string get_file_contents(const char* filename) {
   std::ifstream in(filename, std::ios::binary);
@@ -70,7 +72,7 @@ void Shader::compileErrors(unsigned int shader, const char* type) {
   GLint hasCompiled;
   // Character array to store error message in
   char infoLog[1024];
-  if (type != "PROGRAM") {
+  if (strcmp(type, "PROGRAM") != 0) {
     glGetShaderiv(shader, GL_COMPILE_STATUS, &hasCompiled);
     if (hasCompiled == GL_FALSE) {
       glGetShaderInfoLog(shader, 1024, NULL, infoLog);
